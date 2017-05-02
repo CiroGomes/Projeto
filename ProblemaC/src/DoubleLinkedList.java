@@ -9,12 +9,19 @@ public class DoubleLinkedList {
 
 	public static void main(String[] args) {
 		int N = Integer.parseInt(leitor.nextLine());
+		if (N % 2 != 0) {
+			System.out.println("Quantidade deve ser par!");
+			System.exit(0);
+		} else if (N < 2 || N > Math.pow(10, 4)) {
+			System.out.println("Quantidade deve estar entre o seguinte intervalo: 2 <= N <= 10^4");
+			System.exit(0);
+		}
+
 		String entry = leitor.nextLine();
-		Player player = new Player();
-		System.out.println("Resposta = " + calcular(entry, player, N, player.getPoints()));
+		System.out.println("Resposta = " + calcular(entry, N, 0));
 	}
 
-	public static int calcular(String list, Player player, int N, int resultado) {
+	public static int calcular(String list, int N, int resultado) {
 		String[] values = list.split(" ");
 		DoubleLinkedList list1 = new DoubleLinkedList();
 		DoubleLinkedList list2 = new DoubleLinkedList();
@@ -34,18 +41,16 @@ public class DoubleLinkedList {
 
 		int resultado1 = list1.getFirst().getValue();
 		list1.removeFirst();
-		player.setPoints(resultado1);
-		resultado1 = calcular(list1, player, resultado1);
+		resultado1 = calcular(list1, resultado1);
 
 		int resultado2 = list2.getLast().getValue();
 		list2.removeLast();
-		player.setPoints(resultado2);
-		resultado2 = calcular(list2, player, resultado2);
+		resultado2 = calcular(list2, resultado2);
 
 		return resultado1 > resultado2 ? resultado1 : resultado2;
 	}
 
-	public static int calcular(DoubleLinkedList list, Player player, int resultado) {
+	private static int calcular(DoubleLinkedList list, int resultado) {
 		if (list.getLength() >= 4) {
 			int first = list.getFirst().getValue();
 			int nextFirst = list.getFirst().getNext().getValue();
@@ -53,11 +58,11 @@ public class DoubleLinkedList {
 			int prevLast = list.getLast().getPrevious().getValue();
 
 			if (list.getLength() % 2 == 0) {
-				player.setPoints(player.getPoints() + play(list, first, nextFirst, last, prevLast));
+				resultado += play(list, first, nextFirst, last, prevLast);
 			} else {
 				play(list, first, nextFirst, last, prevLast);
 			}
-			return calcular(list, player, player.getPoints());
+			return calcular(list, resultado);
 		} else if (list.getLength() >= 2) {
 
 			int escolha;
@@ -68,11 +73,11 @@ public class DoubleLinkedList {
 				escolha = list.getLast().getValue();
 				list.removeLast();
 			}
-			player.setPoints(player.getPoints() + (list.getLength() == 1 ? escolha : 0));
-			return calcular(list, player, player.getPoints());
+			resultado += list.getLength() == 1 ? escolha : 0;
+			return calcular(list, resultado);
 		} else {
 			list.removeLast();
-			return player.getPoints();
+			return resultado;
 		}
 	}
 
