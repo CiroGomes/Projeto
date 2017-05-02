@@ -4,7 +4,7 @@ public class DoubleLinkedList {
 	private Node first;
 	private Node last;
 	private int length;
-
+	//teste
 	static Scanner in = new Scanner(System.in);
 
 	public static void main(String[] args) {
