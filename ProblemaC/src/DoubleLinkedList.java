@@ -5,10 +5,10 @@ public class DoubleLinkedList {
 	private Node last;
 	private int length;
 
-	static Scanner leitor = new Scanner(System.in);
+	static Scanner in = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		int N = Integer.parseInt(leitor.nextLine());
+		int N = Integer.parseInt(in.nextLine());
 		if (N % 2 != 0) {
 			System.out.println("Quantidade deve ser par!");
 			System.exit(0);
@@ -17,7 +17,7 @@ public class DoubleLinkedList {
 			System.exit(0);
 		}
 
-		String entry = leitor.nextLine();
+		String entry = in.nextLine();
 		System.out.println("Resposta = " + calculate(entry, N, 0));
 	}
 
