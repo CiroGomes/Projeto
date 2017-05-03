@@ -13,7 +13,6 @@ public class Apresentation {
 			e.printStackTrace();
 		}
 		new LoginScreen(facade);
-
 	}
 
 }
